@@ -11,6 +11,7 @@ using IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((_, services) => services
             .Configure<AppConfig>(config.GetSection("Api"))
             .AddScoped<IUnsplash, Unsplash>()
+            .AddScoped<IImageProcessor, ImageProcessor>()
             .AddScoped<IWallpaperManager, WallpaperManager>())
         .Build();
 

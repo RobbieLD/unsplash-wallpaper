@@ -7,11 +7,13 @@ namespace UnsplashWallpaper
         private readonly IUnsplash _unsplash;
         private readonly HttpClient _client = new();
         private readonly AppConfig _appConfig;
+        private readonly IImageProcessor _imageProcessor;
 
-        public WallpaperManager(IUnsplash unsplash, IOptions<AppConfig> options)
+        public WallpaperManager(IUnsplash unsplash, IImageProcessor imageProcessor, IOptions<AppConfig> options)
         {
             _unsplash = unsplash;
             _appConfig = options.Value;
+            _imageProcessor = imageProcessor;
         }
 
         public async Task RefreshWallpapers()
@@ -28,11 +30,12 @@ namespace UnsplashWallpaper
 
         private async Task DownloadWallPaper(int number)
         {
-            string url = await _unsplash.GetRandomPhotoAsync();
+            (string url, string description) = await _unsplash.GetRandomPhotoAsync();
             var response = await _client.GetAsync(url);
 
-            using var fs = new FileStream($"{_appConfig.Location}\\{number}.jpg", FileMode.Create);
-            await response.Content.CopyToAsync(fs);
+            string path = $"{_appConfig.Location}\\{number}.jpg";
+
+            _imageProcessor.AddCaption(await response.Content.ReadAsStreamAsync(), description, path);
         }
     }
 }

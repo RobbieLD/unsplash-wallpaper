@@ -14,16 +14,16 @@ namespace UnsplashWallpaper
             _appConfig = options.Value;
         }
 
-        public async Task<string> GetRandomPhotoAsync()
+        public async Task<(string url, string description)> GetRandomPhotoAsync()
         {
-            string path = $"{_baseUrl}photos/random/?client_id={_appConfig.AccessKey}";
+            string path = $"{_baseUrl}photos/random/?collections={_appConfig.Collection}&orientation={_appConfig.Orientation}&client_id={_appConfig.AccessKey}";
             HttpResponseMessage response = await _client.GetAsync(path);
 
             if (response.IsSuccessStatusCode)
             {
                 var randomImage = await response.Content.ReadAsAsync<RandomImage>();
 
-                return randomImage.links.download;
+                return (randomImage.links.download, randomImage.description);
             }
             else
             {

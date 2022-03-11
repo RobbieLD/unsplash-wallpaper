@@ -2,6 +2,6 @@
 {
     public interface IUnsplash
     {
-        Task<string> GetRandomPhotoAsync();
+        Task<(string url, string description)> GetRandomPhotoAsync();
     }
 }
