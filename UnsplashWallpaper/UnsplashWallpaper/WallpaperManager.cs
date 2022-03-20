@@ -30,12 +30,12 @@ namespace UnsplashWallpaper
 
         private async Task DownloadWallPaper(int number)
         {
-            (string url, string description) = await _unsplash.GetRandomPhotoAsync();
-            var response = await _client.GetAsync(url);
+            var randomImage = await _unsplash.GetRandomPhotoAsync();
+            var response = await _client.GetAsync(randomImage.links.download);
 
             string path = $"{_appConfig.Location}\\{number}.jpg";
 
-            _imageProcessor.AddCaption(await response.Content.ReadAsStreamAsync(), description, path);
+            _imageProcessor.AddCaption(await response.Content.ReadAsStreamAsync(), randomImage, path);
         }
     }
 }

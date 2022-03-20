@@ -1,8 +1,10 @@
 ﻿
+using UnsplashWallpaper.Response;
+
 namespace UnsplashWallpaper
 {
     public interface IImageProcessor
     {
-        void AddCaption(Stream content, string caption, string path);
+        void AddCaption(Stream content, RandomImage randomImage, string path);
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace UnsplashWallpaper
+﻿using UnsplashWallpaper.Response;
+
+namespace UnsplashWallpaper
 {
     public interface IUnsplash
     {
-        Task<(string url, string description)> GetRandomPhotoAsync();
+        Task<RandomImage> GetRandomPhotoAsync();
     }
 }
