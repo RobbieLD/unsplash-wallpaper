@@ -27,9 +27,20 @@ namespace UnsplashWallpaper
         {
             var caption = new StringBuilder();
 
-            caption.AppendLine(string.IsNullOrEmpty(randomImage.location.city) ? string.Empty : $"City: {randomImage.location.city}");
-            caption.AppendLine(string.IsNullOrEmpty(randomImage.location.country) ? string.Empty : $"Country: {randomImage.location.country}");
-            caption.AppendLine(string.IsNullOrEmpty(randomImage.description) ? string.Empty : $"Description: {randomImage.description}");
+            if (!string.IsNullOrEmpty(randomImage.location.city))
+            {
+                caption.AppendLine($"City: {randomImage.location.city}");
+            }
+
+            if (!string.IsNullOrEmpty(randomImage.location.country))
+            {
+                caption.AppendLine($"Country: {randomImage.location.country}");
+            }
+
+            if (!string.IsNullOrEmpty(randomImage.description))
+            {
+                caption.AppendLine($"Description: {randomImage.description}");
+            }
 
             if (caption.Length == 0) return;
 
