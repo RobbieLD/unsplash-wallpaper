@@ -37,7 +37,7 @@ namespace UnsplashWallpaper
                 caption.AppendLine($"Country: {randomImage.location.country}");
             }
 
-            if (!string.IsNullOrEmpty(randomImage.description))
+            if (!string.IsNullOrEmpty(randomImage.description) && randomImage.description.Length < 100)
             {
                 caption.AppendLine($"Description: {randomImage.description}");
             }
